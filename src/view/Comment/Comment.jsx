@@ -17,10 +17,10 @@ const CommentItem = (id) => {
     CommentServices(id.data).then((res) => {
       setComment(res);
     });
-  }, []);
+  }, [id]);
 
   return (
-    <Container maxWidth="1440px">
+    <Container maxWidth="1440px" data-testid="comments">
     <Header />
       <Box sx={{ display: "flex", gap: "50px" , flexWrap: "wrap"}}>
         {comment.map((item) => {
@@ -35,13 +35,13 @@ const CommentItem = (id) => {
               }}
               key={item.id}
             >
-              <Typography variant="h4" sx={{ padding: "15px" }}>
-                name : {item.name}
+              <Typography   data-testid="name" variant="h4" sx={{ padding: "15px" }}>
+              name : {item.name}
               </Typography>
-              <Typography variant="h6" sx={{ padding: "15px" }}>
-                email : {item.email}
+              <Typography  data-testid="email"  variant="h6" sx={{ padding: "15px" }}>
+              email : {item.email}
               </Typography>
-              <ListItem key={item.id}> comment : {item.body}</ListItem>
+              <ListItem data-testid="body" key={item.id}>comment : {item.body}</ListItem>
             </Card>
           );
         })}

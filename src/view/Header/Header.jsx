@@ -1,17 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 const Header = () => {
+
+  const history = useHistory();
+
+  const handelLogout = () => {
+    history.push('/')
+  }
+  const handelPost = () => {
+    history.push('/Post')
+  }
+
   return (
-    <>
-      <Button sx = {{marginRight:'20px' , margin:'40px'}} variant="contained">
-        <Link to="/">Logout</Link>
+    <div data-testid="header">
+      <Button data-testid="Logout" onClick={() =>{handelLogout()}} sx={{ marginRight: "20px", margin: "40px" }} variant="contained">
+        Logout
       </Button>
-      <Button variant="contained">
-        <Link to="/Post">Posts</Link>
+      <Button data-testid="Post"  onClick={() =>{handelPost()}}   variant="contained">
+        Posts
       </Button>
-    </>
+    </div>
   );
 };
 

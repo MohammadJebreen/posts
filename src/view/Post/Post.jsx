@@ -23,7 +23,7 @@ function Post({ data }) {
       const postData = res.data.filter((element) => element.userId === data.id);
       setPost(postData);
     });
-  }, []);
+  }, [data]);
 
   const handelComment = (commId) => {
     idContext(commId);
@@ -31,14 +31,14 @@ function Post({ data }) {
   };
 
   return (
-    <Container component={"div"} maxWidth="1440px">
+    <Container component={"div"} maxWidth="1440px" data-testid="post">
     <Header />
       <Container
         component={"main"}
         sx={{ display: "flex", justifyContent: "center" }}
       >
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: "50px" }}>
-          {post.map((element) => {
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: "50px" }} >
+          {post.map((element, i) => {
             return (
               <Card
                 sx={{
@@ -47,14 +47,15 @@ function Post({ data }) {
                   maxWidth: "350px",
                   justifyContent: "center",
                 }}
-                key={element.id}
+                key={i}
               >
-                <Typography variant="h3" sx={{ padding: "15px" }}>
-                  {element.title}
+                <Typography variant="h3" sx={{ padding: "15px" }} data-testid="title">
+                {element.title}
                 </Typography>
-                <Typography variant="string">{element.body}</Typography>
+                <Typography variant="string" data-testid="body">{element.body}</Typography>
                 <Typography variant="h5">Comment</Typography>
                 <Button
+                  data-testid="showComment"
                   type="submit"
                   variant="contained"
                   fullWidth

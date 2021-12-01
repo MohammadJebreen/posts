@@ -7,8 +7,11 @@ import { Button } from "@mui/material";
 import { useContext } from "react";
 import EmailContext from "../../EmailContext.js";
 import LoginServices from "./LoginServices.js";
+import { useState } from "react";
 
 const Login = () => {
+
+  const [user,setUser] = useState("")
 
   const email = useContext(EmailContext);
 
@@ -18,7 +21,7 @@ const Login = () => {
     e.preventDefault();
     LoginServices().then((res) => {
       res.data.forEach((element) => {
-        if (element.email === e.target.email.value) {
+        if (element.email === user) {
           email(element);
           history.push("/Post");
         }
@@ -28,6 +31,7 @@ const Login = () => {
 
   return (
     <Container
+      data-testid="login"
       component="div"
       sx={{
         height: "99vh",
@@ -50,7 +54,10 @@ const Login = () => {
             fullWidth
             name="email"
             label="Email"
-          />
+            inputProps={{ "data-testid": "email" }}
+            value={user}
+            onChange={(e) => setUser(e.target.value)}
+            />
           <TextField
             margin="normal"
             type="password"
@@ -59,7 +66,7 @@ const Login = () => {
             name="password"
             label="password"
           />
-          <Button type="submit" variant="contained" fullWidth>
+          <Button  data-testid="submitLogin" type="submit" variant="contained" fullWidth>
             Login
           </Button>
         </Box>
